@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: smokeping
+spec:
+  selector:
+    app: smokeping
+  ports:
+  - protocol: TCP
+    port: 80
+  type: ClusterIP

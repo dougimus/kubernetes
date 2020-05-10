@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tautulli
+spec:
+  selector:
+    app: tautulli
+  ports:
+  - protocol: TCP
+    port: 8181
+  type: ClusterIP

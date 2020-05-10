@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: smokeping
+  name: smokeping
+  selfLink: /apis/apps/v1/namespaces/default/deployments/smokeping
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: smokeping
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: smokeping
+    spec:
+      containers:
+      - image: linuxserver/smokeping
+        imagePullPolicy: Always
+        name: smokeping
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        ports:
+        - containerPort: 80
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: "Canada/Eastern"
+        volumeMounts:
+        - name: smokeping
+          mountPath: /config
+        - name: smokeping-data
+          mountPath: /data
+      volumes:
+      - name: smokeping
+        hostPath:
+          path: /mnt/Media/k8s/smokeping
+      - name: smokeping-data
+        hostPath:
+          path: /mnt/VMs/k8s/smokeping
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

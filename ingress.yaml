@@ -1,0 +1,54 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+          #  nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: cobalt.lan
+    http:
+      paths:
+      - path: /jackett
+        backend:
+          serviceName: jackett
+          servicePort: 9117
+      - path: /sonarr
+        backend:
+          serviceName: sonarr
+          servicePort: 8989
+      - path: /radarr
+        backend:
+          serviceName: radarr
+          servicePort: 7878
+      - path: /
+        backend:
+          serviceName: heimdall
+          servicePort: 80
+  - host: deluge.internal
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: deluge-web
+          servicePort: 8112
+  - host: tautulli.internal
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: tautulli
+          servicePort: 8181
+  - host: smokeping.internal
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: smokeping
+          servicePort: 80
+  - http:
+      paths:
+      - backend:
+          serviceName: steamcache
+          servicePort: 80

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: radarr
+  name: radarr
+  selfLink: /apis/apps/v1/namespaces/default/deployments/radarr
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: radarr
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - image: linuxserver/radarr
+        imagePullPolicy: Always
+        name: radarr
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        ports:
+        - containerPort: 8989
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        volumeMounts:
+        - name: radarr
+          mountPath: /config
+        - name: radarr-download
+          mountPath: /download
+        - name: radarr-lib
+          mountPath: /mnt/Media/Video/Movies
+      volumes:
+      - name: radarr
+        hostPath:
+          path: /mnt/Media/k8s/radarr
+      - name: radarr-download
+        hostPath:
+          path: /mnt/VMs/Downloads/Torrents/Done
+      - name: radarr-lib
+        hostPath:
+          path: /mnt/Media/Video/Movies
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
