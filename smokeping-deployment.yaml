@@ -51,7 +51,7 @@ spec:
       volumes:
       - name: smokeping
         hostPath:
-          path: /mnt/Media/k8s/smokeping
+          path: /media/Config/smokeping
       - name: smokeping-data
         hostPath:
           path: /mnt/VMs/k8s/smokeping

@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  X-Deluge-Base: "/deluge/"
+kind: ConfigMap
+metadata:
+  name: custom-headers
+  namespace: ingress

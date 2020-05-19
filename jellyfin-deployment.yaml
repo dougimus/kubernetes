@@ -46,13 +46,18 @@ spec:
           mountPath: /config
         - name: jellyfin-lib
           mountPath: /mnt/Media/Video
+        - name: jellyfin-transcode
+          mountPath: /transcode
       volumes:
       - name: jellyfin
         hostPath:
-          path: /mnt/Media/k8s/jellyfin
+          path: /media/Config/jellyfin
       - name: jellyfin-lib
         hostPath:
-          path: /mnt/Media/Video
+          path: /media/Video
+      - name: jellyfin-transcode
+        emptyDir:
+          medium: Memory
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

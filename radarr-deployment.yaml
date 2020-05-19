@@ -51,13 +51,13 @@ spec:
       volumes:
       - name: radarr
         hostPath:
-          path: /mnt/Media/k8s/radarr
+          path: /media/Config/radarr
       - name: radarr-download
         hostPath:
-          path: /mnt/VMs/Downloads/Torrents/Done
+          path: /media/Downloads
       - name: radarr-lib
         hostPath:
-          path: /mnt/Media/Video/Movies
+          path: /media/Video/Movies
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

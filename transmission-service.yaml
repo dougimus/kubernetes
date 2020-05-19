@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: transmission
+spec:
+  selector:
+    app: transmission
+  ports:
+  - protocol: TCP
+    port: 9091
+  type: ClusterIP

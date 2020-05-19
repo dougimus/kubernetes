@@ -8,5 +8,5 @@ spec:
   ports:
   - protocol: TCP
     port: 8096
-    nodeport: 32436
+    nodePort: 32436
   type: NodePort

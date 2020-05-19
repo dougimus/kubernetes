@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: deluge
+spec:
+  selector:
+    app: deluge
+  ports:
+  - protocol: TCP
+    port: 8112
+  type: ClusterIP

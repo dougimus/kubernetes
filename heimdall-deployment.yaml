@@ -47,7 +47,7 @@ spec:
       volumes:
       - name: heimdall
         hostPath:
-          path: /mnt/Media/k8s/heimdall
+          path: /media/Config/heimdall
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

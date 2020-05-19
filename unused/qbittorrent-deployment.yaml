@@ -6,16 +6,16 @@ metadata:
   creationTimestamp: null
   generation: 1
   labels:
-    app: sonarr
-  name: sonarr
-  selfLink: /apis/apps/v1/namespaces/default/deployments/sonarr
+    app: qbittorrent
+  name: qbittorrent
+  selfLink: /apis/apps/v1/namespaces/default/deployments/qbittorrent
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: sonarr
+      app: qbittorrent
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -25,39 +25,34 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: sonarr
+        app: qbittorrent
     spec:
       containers:
-      - image: linuxserver/sonarr
+      - image: linuxserver/qbittorrent
         imagePullPolicy: Always
-        name: sonarr
+        name: qbittorrent
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         ports:
-        - containerPort: 8989
+        - containerPort: 8080
         env:
         - name: PGID
           value: "1000"
         - name: PUID
           value: "1000"
         volumeMounts:
-        - name: sonarr
+        - name: qbittorrent
           mountPath: /config
-        - name: sonarr-download
+        - name: qbittorrent-download
           mountPath: /download
-        - name: sonarr-lib
-          mountPath: /mnt/Media/Video/TV
       volumes:
-      - name: sonarr
+      - name: qbittorrent
         hostPath:
-          path: /media/Config/sonarr
-      - name: sonarr-download
+          path: /media/Config/qbittorrent
+      - name: qbittorrent-download
         hostPath:
           path: /media/Downloads
-      - name: sonarr-lib
-        hostPath:
-          path: /media/Video/TV
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

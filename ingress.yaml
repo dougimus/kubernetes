@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: cobalt.lan
+  - host: saphron.lan
     http:
       paths:
       - path: /jackett
@@ -22,24 +22,14 @@ spec:
         backend:
           serviceName: radarr
           servicePort: 7878
+      - path: /transmission
+        backend:
+          serviceName: transmission
+          servicePort: 9091
       - path: /
         backend:
           serviceName: heimdall
           servicePort: 80
-  - host: deluge.internal
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: deluge-web
-          servicePort: 8112
-  - host: tautulli.internal
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: tautulli
-          servicePort: 8181
   - host: smokeping.internal
     http:
       paths:
